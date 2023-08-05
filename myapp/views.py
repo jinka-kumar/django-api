@@ -19,20 +19,24 @@ def authenticate_api_key(func):
 @authenticate_api_key
 def hi(request):
     current_time = datetime.now().strftime("%H:%M:%S")
-    response = f"Hi! Good {get_day_time(current_time)}"
+    now = datetime.now().strftime("%H:%M:%S")
+    response = f"Hi! Good {get_day_time(current_time)}and time is :{now}"
     return HttpResponse(response)
 
 @authenticate_api_key
 def hello(request):
     current_time = datetime.now().strftime("%H:%M:%S")
-    response = f"Hello! Good {get_day_time(current_time)}"
+    now = datetime.now().strftime("%H:%M:%S")
+    response = f"Hello! Good {get_day_time(current_time)} and time is : {now}"
     return HttpResponse(response)
 
 def get_day_time(current_time):
     hour = int(current_time.split(":")[0])
     if 5 <= hour < 12:
         return "Morning"
-    elif 12 <= hour < 18:
+    elif 12 <= hour < 16:
         return "Afternoon"
-    else:
+    elif 16<= hour < 19:
         return "Evening"
+    else:
+        return "Night"
